@@ -1,63 +1,17 @@
 
 const express = require('express');
 const bookRouter = express.Router();
-const { MongoClient, ObjectID } = require('mongodb')
+const bookConroller = require('../controllers/bookController');
+const bookService = require('../services/goodreadsService');
 
 function router(nav) {
     // protecting the books route
-    bookRouter.use((req, res, next) => {
-        // we can also include req.user.admin  or any other role
-        if (req.user) {
-            next();
-
-        } else {
-            res.redirect('/');
-        }
-
-    })
+    const { getIndex, getById, isSignedIn } = bookConroller(nav, bookService);
+    bookRouter.use(isSignedIn)
     bookRouter.route('/')
-        .get((req, res) => {
-            const url = 'mongodb://localhost:27017';
-            const dbName = 'libraryApp';
-            (async function mongo() {
-                let client;
-                try {
-                    client = await MongoClient.connect(url, { useUnifiedTopology: true });
-                    console.log("Connected to server!");
-                    const db = client.db(dbName);
-                    const col = await db.collection('books')
-                    const books = await col.find().toArray();
-                    res.render('bookListView',
-                        { nav, title: 'Book Library', books })
-                } catch (err) {
-                    console.log(err);
-                }
-                client.close();
-            }());
-        });
+        .get(getIndex);
     bookRouter.route('/:id')
-        .get((req, res) => {
-            const { id } = req.params;
-            const url = 'mongodb://localhost:27017';
-            const dbName = 'libraryApp';
-            (async function mongo() {
-                let client;
-                try {
-                    client = await MongoClient.connect(url, { useUnifiedTopology: true });
-                    console.log("Connected to server!");
-                    const db = client.db(dbName);
-                    const col = await db.collection('books');
-                    const book = await col.findOne({ _id: new ObjectID(id) });
-                    console.log(book);
-                    res.render('bookView',
-                        { nav, title: 'Book Library', book });
-                } catch (err) {
-                    console.log(err);
-                }
-            }())
-            // res.send("Welcome to single book!");
-
-        });
+        .get(getById);
     return bookRouter;
 
 }

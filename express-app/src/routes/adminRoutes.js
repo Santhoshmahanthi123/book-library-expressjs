@@ -4,57 +4,72 @@ const { MongoClient } = require('mongodb')
 const adminRouter = express.Router();
 const books = [
     {
-        author: "Chinua Achebe",
-        title: "Things Fall Apart",
-        year: 1958
+        author: "Lev Nikolayevich Tolstoy",
+        title: "War and Peace",
+        year: 1958,
+        bookId: 656
     },
     {
-        author: "Hans Christian Andersen",
-        title: "Fairy tales",
-        year: 1836
+        author: "Victor Hugo",
+        title: "Les Miserables",
+        year: 1836,
+        bookId: 24280
     },
     {
         author: "Dante Alighieri",
         title: "The Divine Comedy",
-        year: 1315
+        year: 1315,
+        bookId: 24280
+
     },
     {
         author: "Unknown",
         title: "The Epic Of Gilgamesh",
-        year: -1700
+        year: -1700,
+        bookId: 24280
+
     },
     {
         author: "Unknown",
         title: "The Book Of Job",
-        year: -600
+        year: -600,
+        bookId: 24280
+
     },
     {
         author: "Unknown",
         title: "One Thousand and One Nights",
-        year: 1200
+        year: 1200,
+        bookId: 24280
+
     },
     {
         author: "Unknown",
         title: "Nj\u00e1l's Saga",
-        year: 1350
+        year: 1350,
+        bookId: 24280
+
     },
     {
         author: "Jane Austen",
-
         title: "Pride and Prejudice",
-        year: 1813
+        year: 1813,
+        bookId: 24280
+
     },
     {
         author: "Honor\u00e9 de Balzac",
-
         title: "Le P\u00e8re Goriot",
-        year: 1835
+        year: 1835,
+        bookId: 24280
+
     },
     {
         author: "Samuel Beckett",
-
         title: "Molloy, Malone Dies, The Unnamable, the trilogy",
-        year: 1952
+        year: 1952,
+        bookId: 24280
+
     }
 ]
 function router(nav) {
