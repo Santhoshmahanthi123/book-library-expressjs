@@ -4,6 +4,17 @@ const bookRouter = express.Router();
 const { MongoClient, ObjectID } = require('mongodb')
 
 function router(nav) {
+    // protecting the books route
+    bookRouter.use((req, res, next) => {
+        // we can also include req.user.admin  or any other role
+        if (req.user) {
+            next();
+
+        } else {
+            res.redirect('/');
+        }
+
+    })
     bookRouter.route('/')
         .get((req, res) => {
             const url = 'mongodb://localhost:27017';
